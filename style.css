@@ -1,109 +1,48 @@
 body {
-  background: #f9f6f2;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: #fff8ee;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  margin-top: 30px;
+  color: #d2691e;
+}
+
+.controls {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#cakeArea {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  margin: 0;
 }
 
-.cake {
-  position: relative;
-  width: 250px;
-  height: 250px;
+canvas {
+  background: #ffe4c4;
+  border: 2px solid #d2691e;
+  border-radius: 20px;
+  margin-top: 20px;
 }
-
-.cake-decor {
-  position: absolute;
-  top: 10px;        /* Adjust this to move the image up/down */
-  left: 0px;        /* Adjust this to move the image left/right */
-  width: 250px;     /* Adjust width to fit the cake */
-  pointer-events: none; /* Allows clicking through the image */
-  z-index: 20;      /* Makes sure it's above the cake layers */
+button {
+  margin: 0 12px;
+  padding: 8px 18px;
+  font-size: 1rem;
+  background: #ffcc99;
+  border: 1px solid #d2691e;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
 }
-
-.plate {
-  position: absolute;
-  bottom: 0;
-  left: 15px;
-  width: 220px;
-  height: 40px;
-  border-radius: 50%;
-  background: #f6e6d1;
-  z-index: 2;
+button:hover {
+  background: #ffd9b3;
 }
-
-.layer {
-  position: absolute;
-  left: 35px;
-  width: 180px;
-  height: 50px;
-  border-radius: 90px 90px 80px 80px;
-  z-index: 3;
-}
-
-.layer-bottom {
-  bottom: 40px;
-  background: #fbc687;
-  box-shadow: 0 6px 0 #a2764a;
-}
-
-.layer-middle {
-  bottom: 90px;
-  background: #ffdca5;
-  box-shadow: 0 6px 0 #b18b6a;
-}
-
-.layer-top {
-  bottom: 140px;
-  background: #fff5e1;
-  box-shadow: 0 6px 0 #d4b18f;
-}
-
-.icing {
-  position: absolute;
-  left: 55px;
-  bottom: 148px;
-  width: 140px;
-  height: 30px;
-  background: #fff;
-  border-radius: 70px 70px 60px 60px;
-  z-index: 4;
-}
-
-.drip {
-  position: absolute;
-  width: 18px;
-  height: 25px;
-  background: #fff;
-  border-radius: 10px 10px 8px 8px;
-  z-index: 5;
-}
-
-.drip1 { left: 75px; bottom: 145px; }
-.drip2 { left: 120px; bottom: 143px; }
-.drip3 { left: 160px; bottom: 146px; }
-
-.candle {
-  position: absolute;
-  width: 10px;
-  height: 30px;
-  background: #fcd303;
-  border-radius: 3px;
-  z-index: 10;
-  box-shadow: 0 -4px 8px 0px #fdf6b5;
-  top: 110px;
-  left: 120px;
-}
-
-.candle:after {
-  content: '';
-  display: block;
-  width: 6px;
-  height: 10px;
-  background: orange;
-  border-radius: 50%;
-  position: absolute;
-  top: -10px;
-  left: 2px;
+#candleCount {
+  font-size: 1.1em;
+  margin-left: 20px;
+  color: #b8860b;
 }
