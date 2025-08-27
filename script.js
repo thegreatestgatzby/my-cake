@@ -71,13 +71,55 @@ document.addEventListener("DOMContentLoaded", function () {
   copyLinkBtn.addEventListener("click", function () {
     const param = encodeCandles();
     const url = window.location.origin + window.location.pathname + "?candles=" + param;
-    navigator.clipboard.writeText(url).then(() => {
-      copyMsg.style.display = "inline";
-      setTimeout(() => {
-        copyMsg.style.display = "none";
-      }, 1500);
-    });
+
+    // Try modern clipboard API first
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(url).then(() => {
+        copyMsg.style.display = "inline";
+        setTimeout(() => {
+          copyMsg.style.display = "none";
+        }, 1500);
+      }, () => {
+        fallbackCopyTextToClipboard(url);
+      });
+    } else {
+      fallbackCopyTextToClipboard(url);
+    }
   });
+
+  // --- Fallback for older browsers ---
+  function fallbackCopyTextToClipboard(text) {
+    var textArea = document.createElement("textarea");
+    textArea.value = text;
+    // Avoid scrolling to bottom
+    textArea.style.position = "fixed";
+    textArea.style.top = "0";
+    textArea.style.left = "0";
+    textArea.style.width = "2em";
+    textArea.style.height = "2em";
+    textArea.style.padding = "0";
+    textArea.style.border = "none";
+    textArea.style.outline = "none";
+    textArea.style.boxShadow = "none";
+    textArea.style.background = "transparent";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    try {
+      var successful = document.execCommand('copy');
+      if (successful) {
+        copyMsg.style.display = "inline";
+        setTimeout(() => {
+          copyMsg.style.display = "none";
+        }, 1500);
+      }
+    } catch (err) {
+      alert('Unable to copy link automatically. Please copy it manually:\n' + text);
+    }
+
+    document.body.removeChild(textArea);
+  }
 
   // --- Update browser URL (no reload) ---
   function updateURL() {
@@ -101,6 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // --- Candle blow out logic (unchanged) ---
   function isBlowing() {
+    if (!analyser) return false;
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
     analyser.getByteFrequencyData(dataArray);
@@ -133,7 +176,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // --- Microphone setup (unchanged) ---
-  if (navigator.mediaDevices.getUserMedia) {
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     navigator.mediaDevices
       .getUserMedia({ audio: true })
       .then(function (stream) {
