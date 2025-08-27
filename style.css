@@ -25,14 +25,7 @@ body {
 }
 
 .cake {
-.cake-topper {
-  position: absolute;
-  top: 0px;         /* Adjust this to move the image up/down */
-  left: 0px;        /* Adjust this to move the image left/right */
-  width: 250px;     /* Adjust width to fit the cake */
-  pointer-events: none; /* So clicking the cake still adds candles */
-  z-index: 20;      /* Make sure it's above the cake layers */
-}
+  
   position: absolute;
   width: 250px;
   height: 200px;
